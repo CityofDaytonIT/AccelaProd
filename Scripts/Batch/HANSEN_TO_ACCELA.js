@@ -36,14 +36,14 @@ var br = "<BR>";                            // Break Tag
 //****************************************************************
 //Custom Web Service settings
 //****************************************************************
-var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
+var UriBase = "http://10.16.81.43:804/HansenAccelaServices/"; //Production
 var GetHansenServiceReq = "HansenServiceRequests.svc/GetHansenServiceReq";
 var SetAccelaRecordId = "HansenSetAccelaRecordId.svc/SetAccelaRecordId";
 var GetAccelaCapIds = "AccelaCasesNotInHansen.svc/GetAccelaCapIds";
 
-var provider = "Han84";
-var username = "accela";
-var password = 'accela';
+var provider = "imsp"; //Production
+var username = "accela"; //Production
+var password = 'accela'; //Production
 var contentType = "application/json";
 
 //****************************************************************
