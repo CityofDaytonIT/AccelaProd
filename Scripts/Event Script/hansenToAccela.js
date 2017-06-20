@@ -10,13 +10,12 @@
 //****************************************************************
 // Custom Web Service settings
 //****************************************************************
-var UriBase = "http://10.16.81.21:804/HansenAccelaServices/";
+var UriBase = "http://10.16.81.43:804/HansenAccelaServices/"; //Production
 var LogTest = "LogTest.svc/LogTest";
 var CreateHansenServiceRequest = "HansenServiceRequestCreate.svc/CreateHansenServiceRequest";
-
-var provider = "Han84";
-var username = "jlloyd"; //update for DEV and PROD
-var password = 'hansen'; //update for DEV and PROD
+var provider = "imsp"; //Production
+var username = "accela"; //Production
+var password = 'accela'; //Production
 var contentType = "application/json";
 
 
