@@ -179,8 +179,8 @@ function convertRenewalToReal() {
 
 		var parentLicenseCAPID = result.getOutput();
 		//2 . Copy key information from child CAP to parent CAP.
-		// logDebug("Copying key information from renewal CAP to license CAP");
-		// copyKeyInfo(capID, parentLicenseCAPID);
+		 logDebug("Copying key information from renewal CAP to license CAP");
+		 copyKeyInfo(capID, parentLicenseCAPID);
 	
 		//3. move renew document to parent cap
 		aa.cap.transferRenewCapDocument(partialCapID, parentLicenseCAPID, true);

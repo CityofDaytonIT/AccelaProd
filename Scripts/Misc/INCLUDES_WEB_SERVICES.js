@@ -11,7 +11,7 @@ logDebug("Accessing INCLUDES_WEB_SERVICES");
 var baseURL = "http://"
 var wsAgency = "DAYTON"
 var wsUser = "admin"
-var wsPass = "admin"
+var wsPass = "C!tyAcc3l@"
 
 var SSOURL = "SSOService";
 var SEQGENURL = "SequenceGeneratorService";

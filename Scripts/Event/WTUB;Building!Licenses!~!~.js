@@ -3,6 +3,6 @@ if (matches(appTypeArray[3], "Application", "Renewal") && wfTask=="Issue Registr
 	if (balanceDue > 0 || feeTotalByStatus("NEW") > 0) {
 		showMessage = true; 
 		cancel = true ; 
-		logMessage("Cannot issue registration when fees are due.")
+		comment("Cannot issue registration when fees are due.");
 	}
 }

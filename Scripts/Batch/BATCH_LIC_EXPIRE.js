@@ -10,7 +10,7 @@ aa.env.setValue("newStatus","Expired")
 ***********************/
 /*------------------------------------------------------------------------------------------------------/
 | Program: Batch Expiration.js  Trigger: Batch
-| Client: South Metro Fire
+| Client: Dayton OH
 |
 | Frequency: Annually on January 31 (31 days after to December 31)
 |
@@ -26,18 +26,53 @@ emailText = "";
 maxSeconds = 4.5 * 60;		// number of seconds allowed for batch processing, usually < 5*60
 message = "";
 br = "<br>";
-debug = ""
+debug = "";
+useAppSpecificGroupName = false;
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Includes
 /------------------------------------------------------------------------------------------------------*/
-SCRIPT_VERSION = 2.0
+var SCRIPT_VERSION = 3.0
+var useCustomScriptFile = true;  // if true, use Events->Custom Script, else use Events->Scripts->INCLUDES_CUSTOM
+var useSA = false;
+var SA = null;
+var SAScript = null;
+var bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS", "SUPER_AGENCY_FOR_EMSE");
+if(bzr.getSuccess() && bzr.getOutput().getAuditStatus() != "I"){
+	useSA = true;
+	SA = bzr.getOutput().getDescription();
+	bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS", "SUPER_AGENCY_INCLUDE_SCRIPT");
+	if(bzr.getSuccess()){
+		SAScript = bzr.getOutput().getDescription();
+	}
+}
 
-emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput()
-servProvCode = aa.getServiceProviderCode()
+if(SA){
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS", SA,useCustomScriptFile));
+	eval(getScriptText("INCLUDES_ACCELA_GLOBALS", SA,useCustomScriptFile));
+	eval(getScriptText(SAScript, SA));
+}else{
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS",null,useCustomScriptFile));
+	eval(getScriptText("INCLUDES_ACCELA_GLOBALS",null,useCustomScriptFile));
+}
 
-eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_ACCELA_FUNCTIONS","ADMIN").getScriptText())
-eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_BATCH","ADMIN").getScriptText())
-eval(""+emseBiz.getScriptByPK(servProvCode,"INCLUDES_CUSTOM","ADMIN").getScriptText())
+eval(getScriptText("INCLUDES_CUSTOM",null,useCustomScriptFile));
+eval(getScriptText("INCLUDES_BATCH",null,false));
+
+function getScriptText(vScriptName, servProvCode, useProductScripts){
+	if(!servProvCode) servProvCode = aa.getServiceProviderCode();
+	vScriptName = vScriptName.toUpperCase();
+	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+	try {
+		if(useProductScripts){
+			var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(), vScriptName);
+		}else{
+			var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
+		}
+		return emseScript.getScriptText() + "";
+	}catch (err){
+		return "";
+	}
+}
 
 /*------------------------------------------------------------------------------------------------------/
 |
