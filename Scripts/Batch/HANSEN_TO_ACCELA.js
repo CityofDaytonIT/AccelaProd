@@ -349,6 +349,7 @@ function createAccelaCases(serviceRequest) {
     newAddressModel.setStreetSuffix(serviceRequest.Suffix);
     newAddressModel.setCity(serviceRequest.City);
     newAddressModel.setState(serviceRequest.State);
+    newAddressModel.setZip(serviceRequest.Zip);//new line... need to validate Hansen zip field reference is correct
     newAddressModel.setRefAddressId(serviceRequest.ReferenceAddressId);
 
 
