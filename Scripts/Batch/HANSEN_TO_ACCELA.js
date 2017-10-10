@@ -163,7 +163,7 @@ function addCaseComment(capId, caseComment) {
 // Create Accela Cases from HansenRecords...
 //****************************************************************
 function createAccelaCases(serviceRequest) {
-    aa.print("Begin createAccelaCases...");
+    aa.print(br+"Begin createAccelaCases...");
 
     var requestType = serviceRequest.RequestType;
     aa.print("serviceRequest.RequestType: " + serviceRequest.RequestType);
@@ -533,7 +533,7 @@ if (typeof newHansenRequest !== "undefined") {
         aa.print("CaseNumbers.CaseNumbers.length: " + CaseNumbers.length);
 
         for (var i = 0; i != CaseNumbers.length; i++) {
-            aa.print("data out 1: " + JSON.stringify(CaseNumbers[i]));
+            aa.print(br+"data out 1: " + JSON.stringify(CaseNumbers[i]));
 
            aa.print(postToHansen(SetAccelaRecordId, JSON.stringify(CaseNumbers[i])));
         };
